@@ -58,9 +58,9 @@ var SIMONE = (function () {
         //play animation, if more then call self again
         if(currentPos < currentLevel) {
             playButton(pattern[currentPos]);
-            animationTimers.push(setTimeout("animate(" + (++currentPos) + ")", interval));
+            animationTimers.push(setTimeout(function () { animate(++currentPos); }, interval));
         } else {
-            animationTimers.push(setTimeout(function (){ getReadyForInput(); }, 2));
+            animationTimers.push(setTimeout(function () { getReadyForInput(); }, 2));
         }
     }
 
@@ -80,18 +80,6 @@ var SIMONE = (function () {
         setTimeout(function () {flipBack(lastButtonClicked);}, interval - 200);			
     }
 
-    function swapDown (event) {
-        if(isReadyForInput) {
-            event.target.src = event.target.colorImage;
-        }
-    }
-
-    function swapUp (event) {
-        if(isReadyForInput) {
-            event.target.src = event.target.clearImage;
-            getButtonInput(event.target.id);
-        }
-    }
 
     function getButtonInput (id) {
         if(!isPlayingPattern && isReadyForInput) {
@@ -105,7 +93,7 @@ var SIMONE = (function () {
 
     function checkPress (id) {
         //get the image number, yes this is ugly
-        if(getButtonNumber(id) === pattern[currentTrialIndex]){
+        if(getButtonNumber(id) == pattern[currentTrialIndex]){
             currentTrialIndex++;
             //do we wait for another click? or move on?
             if(currentTrialIndex >= currentLevel) {
@@ -138,6 +126,7 @@ var SIMONE = (function () {
         pageButtons[1] = window.document.getElementById("button1");
         pageButtons[2] = window.document.getElementById("button2");
         pageButtons[3] = window.document.getElementById("button3");
+
 
         pageButtons[0].colorImage = "images/green_led_on.png";
         pageButtons[1].colorImage = "images/red_led_on.png";
@@ -174,4 +163,20 @@ var SIMONE = (function () {
          onhide: function () {
         },
         
-        onshow: function () {            initit();        }    };        }());if(window.widget) {	widget.onhide = SIMONE.onhide();	widget.onshow = SIMONE.onshow();}
+        onshow: function () {            initit();        },
+        
+        swapDown: function (event) {
+            if(isReadyForInput) {
+                event.target.src = event.target.colorImage;
+            }
+        },
+        
+        swapUp: function (event) {
+            if(isReadyForInput) {
+                event.target.src = event.target.clearImage;
+                getButtonInput(event.target.id);
+            }
+        }
+
+        
+    };        }());if(window.widget) {	widget.onhide = SIMONE.onhide();	widget.onshow = SIMONE.onshow();}
