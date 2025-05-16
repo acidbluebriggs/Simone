@@ -1,6 +1,22 @@
 var SIMONE = (function () {
 
-    var currentPlaybackId;    var isPlayingPattern = false;    var isReadyForInput  = false;    var pattern = [];    var currentLevel=0;    var startButtonRed = "images/startButtonRed.png";    var startButtonGreen = "images/startButtonGreen.png";    var startButtonYellow = "images/startButtonYellow.png";    var clearButton = "images/clear.png";    var interval = 1000; //milliseconds    var pageButtons = [];    var isGameOver = false;    //keep track of the attempt number  (when the user clicks it increments until the next trial)    var currentTrialIndex = 0;    var animationTimers = [];    var lastButtonClicked;
+    var currentPlaybackId;
+    var isPlayingPattern = false;
+    var isReadyForInput  = false;
+    var pattern = [];
+    var currentLevel=0;
+    var startButtonRed = "images/startButtonRed.png";
+    var startButtonGreen = "images/startButtonGreen.png";
+    var startButtonYellow = "images/startButtonYellow.png";
+    var clearButton = "images/clear.png";
+    var interval = 1000; //milliseconds
+    var pageButtons = [];
+    var isGameOver = false;
+
+    //keep track of the attempt number  (when the user clicks it increments until the next trial)
+    var currentTrialIndex = 0;
+    var animationTimers = [];
+    var lastButtonClicked;
 
     function flipBack (button) {
         button.src = button.clearImage;
@@ -148,7 +164,8 @@ var SIMONE = (function () {
         isReadyForInput  = false;
         setCurrentLevel(0);
     }
-            return {
+        
+    return {
    
         startGame: function () {
             clearAnimationTimers();
@@ -160,10 +177,13 @@ var SIMONE = (function () {
             changeLevelDisplay(currentLevel);
             runPattern();
         },	
-         onhide: function () {
+ 
+        onhide: function () {
         },
         
-        onshow: function () {            initit();        },
+        onshow: function () {
+            initit();
+        },
         
         swapDown: function (event) {
             if(isReadyForInput) {
@@ -179,4 +199,14 @@ var SIMONE = (function () {
         }
 
         
-    };        }());if(window.widget) {	widget.onhide = SIMONE.onhide();	widget.onshow = SIMONE.onshow();}
+    };
+    
+    
+}());
+
+
+if(window.widget) {
+	widget.onhide = SIMONE.onhide();
+	widget.onshow = SIMONE.onshow();
+}
+
